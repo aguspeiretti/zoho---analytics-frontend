@@ -75,7 +75,7 @@ const ZohoDashboard = () => {
     setExportStatus(null);
 
     try {
-      const url = "http://localhost:4000/api/export-data";
+      const url = "https://zoho-analytics-backend.onrender.com/api/export-data";
       const response = await axios.get(url);
 
       if (response.data && Array.isArray(response.data.data)) {
