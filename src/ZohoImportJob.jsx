@@ -144,8 +144,10 @@ const ZohoDashboard = () => {
     setExportStatus(null);
 
     try {
-      const url1 = "http://localhost:4000/api/export-data";
-      const url2 = "http://localhost:4000/api/export-data2";
+      const url1 =
+        "https://zoho-analytics-backend.onrender.com/api/export-data";
+      const url2 =
+        "https://zoho-analytics-backend.onrender.com/api/export-data2";
 
       const [response1, response2] = await Promise.all([
         axios.get(url1),
