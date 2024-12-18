@@ -248,8 +248,7 @@ const ZohoDashboard = () => {
               <Clock className="mr-2 text-gray-600" size={20} />
               <span className="text-sm text-gray-700">
                 Última actualización:{" "}
-                {new Date(lastUpdate.timestamp).toLocaleString()} (Fuente:{" "}
-                {lastUpdate.source})
+                {new Date(lastUpdate.timestamp).toLocaleString()}
               </span>
             </div>
           )}
@@ -298,8 +297,7 @@ const ZohoDashboard = () => {
         {Object.keys(valueCounts).length === 0 && !loading && (
           <div className="text-center py-12 bg-white rounded-lg shadow">
             <p className="text-gray-500 text-xl">
-              // eslint-disable-next-line react/no-unescaped-entities Haga clic
-              en "Exportar Datos" para comenzar
+              Haga clic en "Exportar Datos" para comenzar
             </p>
           </div>
         )}
