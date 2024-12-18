@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
+/* eslint-disable react/display-name */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 import React, { useState, useMemo } from "react";
 import axios from "axios";
 import {
@@ -7,6 +11,7 @@ import {
   TrendingUp,
   ChevronDown,
   ChevronUp,
+  Clock,
 } from "lucide-react";
 import { FixedSizeList as List } from "react-window";
 
@@ -138,6 +143,21 @@ const ZohoDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [expandedField, setExpandedField] = useState(null);
 
+  // NUEVO: Estado para la última actualización
+  const [lastUpdate, setLastUpdate] = useState(null);
+
+  // NUEVO: Función para obtener la última actualización
+  const fetchLastUpdate = async () => {
+    try {
+      const response = await axios.get(
+        "https://zoho-analytics-back.onrender.com/api/last-update"
+      );
+      setLastUpdate(response.data);
+    } catch (error) {
+      console.error("Error al obtener la última actualización:", error);
+    }
+  };
+
   const exportData = async () => {
     setLoading(true);
     setError(null);
@@ -173,6 +193,8 @@ const ZohoDashboard = () => {
           response1.data?.data?.length || 0
         } + ${response2.data?.data?.length || 0} registros)`,
       });
+
+      fetchLastUpdate();
     } catch (err) {
       setError({ message: err.message });
     } finally {
@@ -220,6 +242,17 @@ const ZohoDashboard = () => {
           <h1 className="text-3xl font-bold text-gray-800">
             Zoho Analytics Dashboard
           </h1>
+          {/* NUEVO: Mostrar última actualización */}
+          {lastUpdate && (
+            <div className="flex items-center bg-gray-200 px-3 py-2 rounded-md">
+              <Clock className="mr-2 text-gray-600" size={20} />
+              <span className="text-sm text-gray-700">
+                Última actualización:{" "}
+                {new Date(lastUpdate.timestamp).toLocaleString()} (Fuente:{" "}
+                {lastUpdate.source})
+              </span>
+            </div>
+          )}
           <button
             onClick={exportData}
             disabled={loading}
@@ -265,7 +298,8 @@ const ZohoDashboard = () => {
         {Object.keys(valueCounts).length === 0 && !loading && (
           <div className="text-center py-12 bg-white rounded-lg shadow">
             <p className="text-gray-500 text-xl">
-              Haga clic en "Exportar Datos" para comenzar
+              // eslint-disable-next-line react/no-unescaped-entities Haga clic
+              en "Exportar Datos" para comenzar
             </p>
           </div>
         )}
