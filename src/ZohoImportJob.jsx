@@ -151,6 +151,7 @@ const ZohoDashboard = () => {
         axios.get(url1),
         axios.get(url2),
       ]);
+      console.log("prueba");
 
       const combinedData = [
         ...(response1.data?.data || []),
